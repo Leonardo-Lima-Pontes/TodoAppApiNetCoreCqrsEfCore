@@ -1,4 +1,4 @@
-namespace Todo.Domain.Commands
+namespace Todo.Domain.Commands.Contracts
 {
     public interface ICommand
     {
