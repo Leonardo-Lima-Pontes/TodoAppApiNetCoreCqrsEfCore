@@ -1,8 +1,10 @@
 using Todo.Domain.Commands.Contracts;
+using Flunt.Notifications;
+using Flunt.Validations;
 
 namespace Todo.Domain.Commands
 {
-    public class CreateTodoCommand : ICommand
+    public class CreateTodoCommand : Notifiable, ICommand
     {
         public CreateTodoCommand() { }
 
@@ -19,7 +21,12 @@ namespace Todo.Domain.Commands
 
         public bool Validate()
         {
-            throw new NotImplementedException();
+            AddNotifications(
+                new Contract()
+                .Requires()
+                .HasMinLen(Title, 3, "Title", "Por favor descreva melhor esta tarefa!")
+                .HasMinLen(User, 6, "User", "Por favor forneça o usuário corretamente")
+            );
         }
     }
 }
