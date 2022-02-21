@@ -19,7 +19,7 @@ namespace Todo.Domain.Commands
         public DateTime Date { get; set; }
         public string? User { get; set; }
 
-        public bool Validate()
+        public void Validate()
         {
             AddNotifications(
                 new Contract()
