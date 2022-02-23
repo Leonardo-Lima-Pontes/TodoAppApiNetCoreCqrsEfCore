@@ -4,11 +4,12 @@ using Todo.Domain.Commands.Contracts;
 
 namespace Todo.Domain.Commands
 {
-    public class MarkTodoAsDone : Notifiable, ICommand
+    public class MarkTodoAsUndone : Notifiable, ICommand
     {
-        public MarkTodoAsDone() { }
 
-        public MarkTodoAsDone(Guid id, string user)
+        public MarkTodoAsUndone() { }
+
+        public MarkTodoAsUndone(Guid id, string user)
         {
             Id = id;
             User = user;
@@ -22,7 +23,7 @@ namespace Todo.Domain.Commands
             AddNotifications(
                 new Contract()
                     .Requires()
-                    .HasMinLen(User, 6, "User", "Usuário invalido, por favor informe um usuário valido")
+                    .HasMinLen(User, 6, "User", "O usuário não é valido, por favor informe um usuário valido")
             );
         }
     }
