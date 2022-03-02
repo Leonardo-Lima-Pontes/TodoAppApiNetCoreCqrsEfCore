@@ -2,7 +2,7 @@ using System;
 using Todo.Domain.Commands;
 using Xunit;
 
-namespace Todo.Domain.CommandTests;
+namespace Todo.Domain.Tests.CommandTests;
 
 public class CreateTodoCommandTests
 {
