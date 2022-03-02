@@ -6,19 +6,20 @@ namespace Todo.Domain.CommandTests;
 
 public class CreateTodoCommandTests
 {
-    [Fact]
-    public void InformarTodoCommandInvalido_Deveria()
+    private readonly CreateTodoCommand _invalidTodoCommand = new CreateTodoCommand("", DateTime.Now, "");
+    private readonly CreateTodoCommand _validTodoCommand = new CreateTodoCommand("Codar até ficar very good", DateTime.Now, "leonardo Lima Pontes");
+
+    public CreateTodoCommandTests()
     {
-        var command = new CreateTodoCommand("t", DateTime.Now, "t");
-        command.Validate();
-        Assert.Equal(command.Valid, false);
+        _validTodoCommand.Validate();
+        _invalidTodoCommand.Validate();
     }
 
     [Fact]
-    public void InformarTodoCommandValido_Deveria()
-    {
-        var command = new CreateTodoCommand("Codar até ficar very good", DateTime.Now, "leonardo Lima Pontes");
-        command.Validate();
-        Assert.Equal(command.Valid, true);
-    }
+    public void InformarTodoCommandInvalido() =>
+        Assert.Equal(_invalidTodoCommand.Valid, false);
+
+    [Fact]
+    public void InformarTodoCommandValido() =>
+        Assert.Equal(_validTodoCommand.Valid, true);
 }
