@@ -1,6 +1,7 @@
 using Flunt.Notifications;
 using Todo.Domain.Commands;
 using Todo.Domain.Commands.Contracts;
+using Todo.Domain.Entities;
 using Todo.Domain.Handlers.Contracts;
 using Todo.Domain.Repositories;
 
@@ -18,6 +19,12 @@ namespace Todo.Domain.Handlers
             command.Validate();
             if (command.Invalid)
                 return new GenericCommandResult(false, "Infelizmente não foi possivel criar sua tarefa", command.Notifications);
+
+            var todo = new TodoItem(command.Title, command.Date, command.User);
+
+            _todoRepository.Create(todo);
+
+            return new GenericCommandResult(true, "Sua tarefa foi criada", todo);
         }
     }
 }
