@@ -5,7 +5,7 @@ using Todo.Domain.Handlers;
 using Todo.Domain.Tests.FaceRepositories;
 using Xunit;
 
-namespace Todo.Domain.Tests.CommandTests;
+namespace Todo.Domain.Tests.HandlerTests;
 
 public class CreateTodoHandlerTests
 {
