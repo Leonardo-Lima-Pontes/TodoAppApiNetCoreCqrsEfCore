@@ -9,7 +9,6 @@ namespace Todo.Domain.Tests.HandlerTests;
 
 public class CreateTodoHandlerTests
 {
-
     private readonly CreateTodoCommand _invalidTodoCommand = new CreateTodoCommand("", DateTime.Now, "");
     private readonly CreateTodoCommand _validTodoCommand = new CreateTodoCommand("Codar até ficar very good", DateTime.Now, "leonardo Lima Pontes");
     private readonly TodoHandler _handler = new TodoHandler(new FakeTodoRepository());
