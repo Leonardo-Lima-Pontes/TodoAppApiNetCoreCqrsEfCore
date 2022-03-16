@@ -7,7 +7,12 @@ using Todo.Domain.Repositories;
 
 namespace Todo.Domain.Handlers;
 
-public class TodoHandler : Notifiable, IHandler<CreateTodoCommand>, IHandler<UpdateTodoCommand>
+public class TodoHandler :
+        Notifiable,
+        IHandler<CreateTodoCommand>,
+        IHandler<UpdateTodoCommand>,
+        IHandler<MarkTodoAsDone>,
+        IHandler<MarkTodoAsUndone>
 {
     private readonly ITodoRepository _todoRepository;
 
@@ -40,5 +45,35 @@ public class TodoHandler : Notifiable, IHandler<CreateTodoCommand>, IHandler<Upd
         _todoRepository.update(todo);
 
         return new GenericCommandResult(true, "Sua tarefa foi atualizada", todo);
+    }
+
+    public ICommandResult Handle(MarkTodoAsDone command)
+    {
+        command.Validate();
+        if (command.Invalid)
+            return new GenericCommandResult(false, "Ops parece que sua tarefa esta errada", command.Notifications);
+
+        var todo = _todoRepository.GetById(command.Id, command.User);
+
+        todo.MarkAsDone();
+
+        _todoRepository.update(todo);
+
+        return new GenericCommandResult(true, "Tarefa concluida", command.Notifications);
+    }
+
+    public ICommandResult Handle(MarkTodoAsUndone command)
+    {
+        command.Validate();
+        if (command.Invalid)
+            return new GenericCommandResult(false, "Ops pareque que sua tarefa esta errada", command.Notifications);
+
+        var todo = _todoRepository.GetById(command.Id, command.User);
+
+        todo.MarkAsUndone();
+
+        _todoRepository.update(todo);
+
+        return new GenericCommandResult(true, "Tarefa marcada como não concluida com sucesso", command.Notifications);
     }
 }
